@@ -59,6 +59,11 @@ async function updateModelStatusIndicator() {
         window.initializeModelDropdown();
     }
     
+    // Update system message when model status changes
+    if (window.displaySystemMessage) {
+        window.displaySystemMessage();
+    }
+    
     // Refresh model management UI if we're on the models tab
     const modelsTab = document.getElementById('content-models');
     if (modelsTab && modelsTab.classList.contains('active')) {
@@ -417,6 +422,7 @@ async function loadModel(modelId) {
         },
         onError: (error, failedModelId) => {
             console.error(`Failed to load model ${failedModelId}:`, error);
+            showErrorBanner('Failed to load model: ' + error.message);
         }
     });
 }
@@ -488,6 +494,8 @@ function createModelNameWithLabels(modelId, serverModels) {
                 labelClass = 'reranking';
             } else if (labelLower === 'coding') {
                 labelClass = 'coding';
+            } else if (labelLower === 'tool-calling') {
+                labelClass = 'tool-calling';
             }
             labelSpan.className = `model-label ${labelClass}`;
             labelSpan.textContent = label;
@@ -698,6 +706,11 @@ async function refreshModelMgmtUI() {
     // Refresh model dropdown in chat after updating installed models
     if (window.initializeModelDropdown) {
         window.initializeModelDropdown();
+    }
+    
+    // Update system message when installed models change
+    if (window.displaySystemMessage) {
+        window.displaySystemMessage();
     }
 }
 
