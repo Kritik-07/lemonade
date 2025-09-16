@@ -553,6 +553,7 @@ class Server:
             "repeat_penalty": completion_request.repeat_penalty,
             "top_k": completion_request.top_k,
             "top_p": completion_request.top_p,
+            "enable_thinking": completion_request.enable_thinking,
             "max_new_tokens": completion_request.max_tokens,
         }
 
@@ -709,6 +710,7 @@ class Server:
             "repeat_penalty": chat_completion_request.repeat_penalty,
             "top_k": chat_completion_request.top_k,
             "top_p": chat_completion_request.top_p,
+            "enable_thinking": chat_completion_request.enable_thinking,
             "max_new_tokens": max_new_tokens,
         }
 
@@ -984,6 +986,7 @@ class Server:
             "repeat_penalty": responses_request.repeat_penalty,
             "top_k": responses_request.top_k,
             "top_p": responses_request.top_p,
+            "enable_thinking": responses_request.enable_thinking,
             "max_new_tokens": responses_request.max_output_tokens,
         }
 
@@ -1116,6 +1119,7 @@ class Server:
         repeat_penalty: float | None = None,
         top_k: int | None = None,
         top_p: float | None = None,
+        enable_thinking: bool | None = None, 
     ):
         """
         Core streaming completion logic, separated from response handling.
